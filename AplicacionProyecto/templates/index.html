@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Predicción Bicicletas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen flex items-center justify-center relative overflow-hidden">
+
+    <div class="absolute inset-0">
+        <img src="/static/map.jpeg"
+            class="w-full h-full object-cover blur-[2px] scale-105">
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-2xl relative z-10 max-h-[80vh] overflow-y-auto">
+
+        <h1 class="text-xl font-bold mb-4 text-center">
+            Predicción de trayecto
+        </h1>
+
+        <!-- ESTACIÓN con datalist -->
+        <div class="contenedorEstaciones space-y-3">
+
+            <div class="estaciones flex items-center gap-3 p-3 rounded-lg">
+
+                <!-- SALIDA -->
+                <div class="flex-1">
+                    <label class="block mb-1 font-medium">Salida</label>
+                    <input 
+                        list="listaEstacionSalida"
+                        class="w-full p-2 border rounded"
+                        placeholder="Estación salida"
+                        required
+                    >
+                </div>
+
+                <!-- FLECHA -->
+                <div class="text-2xl text-blue-500 animate-pulse">
+                    →
+                </div>
+
+                <!-- LLEGADA -->
+                <div class="flex-1">
+                    <label class="block mb-1 font-medium">Llegada</label>
+                    <input 
+                        list="listaEstacionLlegada"
+                        class="w-full p-2 border rounded"
+                        placeholder="Estación llegada"
+                        required
+                    >
+                </div>
+            </div>
+        </div>
+
+        <button 
+            onclick="añadirEstacion()"
+            class="text-blue-600 hover:text-blue-800 underline bg-transparent py-5 mt-3"
+        >
+            + Añadir estación
+        </button>
+
+        <datalist id="listaEstacionSalida">
+        <option value="Torre Las Palmas">
+        <option value="Base Naval">
+        <option value="Churruca">
+        <option value="Las Canteras - Luis Morote">
+        <option value="IES Mesa y López">
+        <option value="Mercado Central">
+        <option value="Francisco Gourié">
+        <option value="Plazoleta de Farray">
+        <option value="Parque Santa Catalina">
+        <option value="San Bernardo">
+        <option value="Cabildo de Gran Canaria">
+        <option value="Ayuntamiento">
+        <option value="Plaza O'Shanahan">
+        <option value="Plaza de España">
+        <option value="Barranquillo Don Zoilo">
+        <option value="Plaza de América">
+        <option value="Paseo de Chil - Av. Escaleritas">
+        <option value="Obelisco">
+        <option value="Castillo de la Luz">
+        <option value="Oficina de la Sitycleta">
+        <option value="San Telmo">
+        <option value="Castillo de Mata (elect.)">
+        <option value="Muelle Cruceros">
+        <option value="C.C. El Muelle">
+        <option value="Vega de San José">
+        <option value="C.C. La Minilla">
+        <option value="Plaza San Agustín">
+        <option value="Plaza de España (elect.)">
+        <option value="Muelle Deportivo">
+        <option value="Teatro Pérez Galdós">
+        <option value="León y Castillo">
+        <option value="Gabinete Literario">
+        <option value="Parque del Estadio Insular">
+        <option value="Piscina Julio Navarro">
+        <option value="Canódromo">
+        <option value="Intermodal El Rincón">
+        <option value="Plaza del Pilar">
+        <option value="Torre Woermann">
+        <option value="P. de Chil con Góngora">
+        <option value="San Cristóbal">
+        <option value="Plaza de la feria ">
+        <option value="Aparcamiento Sanapú">
+        <option value="ULPGC - CC. Jurídicas">
+        <option value="ULPGC - Polivalente I">
+        <option value="Plaza Manuel Becerra (elect.)">
+        <option value="Autoridad portuaria">
+        <option value="El Sebadal (elec.)">
+        <option value="Ciudad de la Justicia">
+        <option value="C.C. La Ballena (elect.)">
+        <option value="Ciudad Deportiva">
+        <option value="ULPGC - Ingeniería">
+        <option value="ULPGC - Educación física">
+        <option value="Estadio Gran Canaria">
+        <option value="Centro Municipal de La Mujer">
+        <option value="Hotel Santa Catalina">
+        <option value="Escaleritas HiperDino">
+        <option value="Villa de Zarauz">
+        <option value="ULPGC - Biblioteca General">
+        <option value="Plaza Manuel Becerra">
+        <option value="Puente La Feria">
+        <option value="Oficina Sítycleta (elect.)">
+        <option value="Hoya de la Plata">
+        <option value="Oficina Sagulpa">
+        <option value="Parque de la Mayordomía">
+        <option value="ULPGC - CC. Básicas">
+        <option value="Intercambiador Tamaraceite">
+        <option value="Los Tarahales">
+        <option value="Parque Juan Pablo II">
+        <option value="Lomo Los Frailes">
+        <option value="Infecar (elec.)">
+        <option value="Canódromo (Sítyneta)">
+        <option value="Canódromo (electric)">
+        <option value="Rotonda del Vigía (eléc.)">
+        <option value="Reyes Católicos">
+        <option value="Hospital Dr. Negrín (eléc.)">
+        <option value="Venegas Usos Múltiples">
+        <option value="La Minilla (eléc.)">
+        <option value="Parque Don Benito (eléc.)">
+        <option value="Intercambiador Tamaraceite (eléc.)">
+        <option value="Estadio G.C. (eléc.)">
+        <option value="plazoleta farray">
+        <option value="E-bike Estacion de Carga">
+        </datalist>
+
+        <datalist id="listaEstacionLlegada">
+        <option value="San Telmo">
+        <option value="Intermodal El Rincón">
+        <option value="Parque Santa Catalina">
+        <option value="Plaza de España">
+        <option value="Churruca">
+        <option value="Plaza de la feria ">
+        <option value="Muelle Cruceros">
+        <option value="Torre Las Palmas">
+        <option value="Plaza Manuel Becerra">
+        <option value="Plaza O'Shanahan">
+        <option value="Plaza San Agustín">
+        <option value="Base Naval">
+        <option value="Muelle Deportivo">
+        <option value="Ciudad de la Justicia">
+        <option value="Torre Woermann">
+        <option value="Oficina de la Sitycleta">
+        <option value="Obelisco">
+        <option value="C.C. El Muelle">
+        <option value="San Cristóbal">
+        <option value="Plaza de España (elect.)">
+        <option value="Plazoleta de Farray">
+        <option value="Villa de Zarauz">
+        <option value="Francisco Gourié">
+        <option value="Autoridad portuaria">
+        <option value="Vega de San José">
+        <option value="León y Castillo">
+        <option value="Castillo de Mata (elect.)">
+        <option value="Ayuntamiento">
+        <option value="Las Canteras - Luis Morote">
+        <option value="Oficina Sagulpa">
+        <option value="Canódromo">
+        <option value="Paseo de Chil - Av. Escaleritas">
+        <option value="San Bernardo">
+        <option value="Teatro Pérez Galdós">
+        <option value="Plaza del Pilar">
+        <option value="IES Mesa y López">
+        <option value="Puente La Feria">
+        <option value="Castillo de la Luz">
+        <option value="Gabinete Literario">
+        <option value="ULPGC - Biblioteca General">
+        <option value="Parque del Estadio Insular">
+        <option value="ULPGC - Polivalente I">
+        <option value="Cabildo de Gran Canaria">
+        <option value="El Sebadal (elec.)">
+        <option value="Ciudad Deportiva">
+        <option value="C.C. La Ballena (elect.)">
+        <option value="Mercado Central">
+        <option value="Plaza de América">
+        <option value="Hoya de la Plata">
+        <option value="Piscina Julio Navarro">
+        <option value="ULPGC - CC. Jurídicas">
+        <option value="ULPGC - Ingeniería">
+        <option value="Estadio Gran Canaria">
+        <option value="Oficina Sítycleta (elect.)">
+        <option value="Hotel Santa Catalina">
+        <option value="Plaza Manuel Becerra (elect.)">
+        <option value="Lomo Los Frailes">
+        <option value="P. de Chil con Góngora">
+        <option value="Centro Municipal de La Mujer">
+        <option value="Aparcamiento Sanapú">
+        <option value="Escaleritas HiperDino">
+        <option value="C.C. La Minilla">
+        <option value="Canódromo (electric)">
+        <option value="ULPGC - CC. Básicas">
+        <option value="Barranquillo Don Zoilo">
+        <option value="Intercambiador Tamaraceite">
+        <option value="Infecar (elec.)">
+        <option value="Canódromo (Sítyneta)">
+        <option value="Los Tarahales">
+        <option value="Parque Juan Pablo II">
+        <option value="Parque de la Mayordomía">
+        <option value="castillo Mata (Elect)">
+        <option value="Rotonda del Vigía (eléc.)">
+        <option value="Castillo de Mata">
+        <option value="Plaza de España (eléc.)">
+        <option value="Oficina Sítycleta (eléc.)">
+        <option value="Hospital Dr. Negrín (eléc.)">
+        <option value="Venegas Usos Múltiples">
+        <option value="El Sebadal (eléc.)">
+        <option value="Reyes Católicos">
+        <option value="Parque Don Benito (eléc.)">
+        <option value="La Minilla (eléc.)">
+        <option value="Intercambiador Tamaraceite (eléc.)">
+        <option value="C.C. La Ballena (eléc.)">
+        <option value="Canódromo (eléc.)">
+        <option value="Estadio G.C. (eléc.)">
+        </datalist>
+
+        <button 
+            class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            onclick="Prediccion()"
+        >
+            Predecir
+        </button>
+
+        <div id="result" class="mt-4 text-center font-bold"></div>
+    </div>
+<script src="/static/index.js"></script>
+</body>
+</html>
